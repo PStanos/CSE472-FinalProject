@@ -6,6 +6,7 @@ public class DrawTool : MonoBehaviour
 {
     Material mat;
     Color[] colors;
+	Color[] colors2;
     public int penSize = 10;
     List<Vector2> points;
     
@@ -16,6 +17,8 @@ public class DrawTool : MonoBehaviour
         mat = GetComponent<SpriteRenderer>().material;
         colors = new Color[penSize*penSize];
         for (int i = 0; i < penSize*penSize; i++) { colors[i] = Color.black; }
+		for (int i = 0; i < penSize*penSize; i++) { colors[i] = Color.white; }
+
     }
 
     void Update()
@@ -34,6 +37,22 @@ public class DrawTool : MonoBehaviour
                 GetComponent<SpriteRenderer>().material = mat;
             }
         }
+
+		//Erase
+		if ( Input.GetMouseButton( 1 ) )
+		{
+			Vector2 hitLoc = GetUVCoordinate();
+			
+			if ( hitLoc.x >= 0 && hitLoc.y >= 0 )
+			{
+				//Debug.Log( hitLoc );
+				Texture2D tex = (Texture2D)mat.GetTexture( "_Casters" );
+				tex.SetPixels( (int)( tex.width * hitLoc.x ), (int)( tex.height * hitLoc.y ), penSize,penSize, colors2,0 );
+				tex.Apply();
+				mat.SetTexture( "_Casters", tex );
+				GetComponent<SpriteRenderer>().material = mat;
+			}
+		}
 
         //method to draw straight line
 
