@@ -12,30 +12,49 @@ public class Movement : MonoBehaviour
         mat = GetComponent<SpriteRenderer>().material;
     }
 
-    void Update()
+    void FixedUpdate()
     {
+        Vector2 tempPos = position;
+
         float delta = Time.deltaTime * moveRate;
 
         if(Input.GetKey(KeyCode.A))
         {
-            position += new Vector2( -delta, 0.0f );
+            tempPos += new Vector2( -delta, 0.0f );
         }
         else if(Input.GetKey(KeyCode.D))
         {
-            position += new Vector2( delta, 0.0f );
+            tempPos += new Vector2( delta, 0.0f );
         }
 
         if ( Input.GetKey( KeyCode.W ) )
         {
-            position += new Vector2( 0.0f, delta );
+            tempPos += new Vector2( 0.0f, delta );
         }
         else if ( Input.GetKey( KeyCode.S ) )
         {
-            position += new Vector2( 0.0f, -delta );
+            tempPos += new Vector2( 0.0f, -delta );
         }
 
-        position = new Vector2( Mathf.Min( Mathf.Max( 0.0f, position.x ), 1.0f ), Mathf.Min( Mathf.Max( 0.0f, position.y ), 1.0f ) );
-        mat.SetFloat( "_LightPosX", position.x );
-        mat.SetFloat( "_LightPosY", position.y );
+        tempPos = new Vector2( Mathf.Min( Mathf.Max( 0.0f, tempPos.x ), 1.0f ), Mathf.Min( Mathf.Max( 0.0f, tempPos.y ), 1.0f ) );
+
+        if ( IsValidPosition( tempPos ) )
+        {
+            position = tempPos;
+            mat.SetFloat( "_LightPosX", position.x );
+            mat.SetFloat( "_LightPosY", position.y );
+        }
+    }
+
+    private bool IsValidPosition(Vector3 position)
+    {
+        Texture2D tex = (Texture2D)mat.GetTexture( "_Casters" );
+        
+        if(tex.GetPixel(Mathf.FloorToInt(position.x * tex.width), Mathf.FloorToInt(position.y * tex.height)) != Color.white)
+        {
+            return false;
+        }
+
+        return true;
     }
 }
