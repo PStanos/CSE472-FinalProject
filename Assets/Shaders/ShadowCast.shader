@@ -44,12 +44,13 @@
             	fixed4 col = tex2D(_Casters, float2(i.texcoord0.x,i.texcoord0.y)); // Get the current pixel color
             	
             	float2 vec = float2(i.texcoord0.x-_LightPosX, i.texcoord0.y-_LightPosY); // The vector position of the current pixel with origin at the light position
-            	
+   
             	float2 lightPos = float2(_LightPosX,_LightPosY); // The vector2 defining the light's position
             	
             	fixed4 ambientColor = fixed4(0.01,0.01,0.01,0); // The minimum light value
             	
-            
+				_LightDistance -= .025;
+				
             	if((col.r < 1.0)||(col.g < 1.0)||(col.b < 1.0)) // If this pixel is within a shadowcasting object it will always be black
             	{
             		return fixed4(0,0,0,0);
@@ -57,11 +58,11 @@
             	else
             	{
             		
-            		for(int s = 0; s<100 ; s++ ) // Iterate set amount of times for each pixel, more iterations = more accurate shadows
+            		for(int s = 0; s<10 ; s++ ) // Iterate set amount of times for each pixel, more iterations = more accurate shadows
             		{
 						// Checks if each sample pixel contains a shadowcaster, if it does it lies between the light source and this pixel, so cast a shadow.
 
-            			fixed4 sampCol = tex2D(_Casters, lightPos+(vec*(s/100.0)) );
+            			fixed4 sampCol = tex2D(_Casters, lightPos+(vec*(s/(10.0))) );
             			
             			if((sampCol.r < 1.0)||(sampCol.g < 1.0)||(sampCol.b < 1.0))
             			{
