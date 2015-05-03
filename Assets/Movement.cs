@@ -126,4 +126,10 @@ public class Movement : MonoBehaviour
 
         return true;
     }
+
+    public void OnGUI()
+    {
+        GUILayout.BeginHorizontal();
+        isGravityOn = GUILayout.Toggle( isGravityOn, "Gravity?" );
+    }
 }

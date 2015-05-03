@@ -58,11 +58,11 @@
             	else
             	{
             		
-            		for(int s = 0; s<10 ; s++ ) // Iterate set amount of times for each pixel, more iterations = more accurate shadows
+            		for(int s = 0; s<100 ; s++ ) // Iterate set amount of times for each pixel, more iterations = more accurate shadows
             		{
 						// Checks if each sample pixel contains a shadowcaster, if it does it lies between the light source and this pixel, so cast a shadow.
 
-            			fixed4 sampCol = tex2D(_Casters, lightPos+(vec*(s/(10.0))) );
+            			fixed4 sampCol = tex2D(_Casters, lightPos+(vec*(s/(100.0))) );
             			
             			if((sampCol.r < 1.0)||(sampCol.g < 1.0)||(sampCol.b < 1.0))
             			{
