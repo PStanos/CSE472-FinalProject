@@ -96,7 +96,6 @@ public class DrawTool : MonoBehaviour
         {
             //Debug.Log( mat.GetTexture( "_Casters" ).width );
             Vector2 normalizedHitPos = new Vector2( hit.point.x - hit.transform.position.x, hit.point.y - hit.transform.position.y ) + new Vector2( 0.5f, 0.5f );
-            Debug.Log( normalizedHitPos );
             return new Vector2( normalizedHitPos.x, normalizedHitPos.y );
         }
         else
