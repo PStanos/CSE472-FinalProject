@@ -16,8 +16,10 @@ public class DrawTool : MonoBehaviour
         points = new List<Vector2>();
         mat = GetComponent<SpriteRenderer>().material;
         colors = new Color[penSize*penSize];
+		colors2 = new Color[penSize*penSize];
+
         for (int i = 0; i < penSize*penSize; i++) { colors[i] = Color.black; }
-		for (int i = 0; i < penSize*penSize; i++) { colors[i] = Color.white; }
+		for (int i = 0; i < penSize*penSize; i++) { colors2[i] = Color.white; }
 
     }
 
