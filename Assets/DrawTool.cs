@@ -154,5 +154,8 @@ public class DrawTool : MonoBehaviour
         }
     }
 
+	public void SetPenSize(float newSize) {
+		penSize = (int)newSize;
+	}
 
 }
